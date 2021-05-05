@@ -14,6 +14,7 @@ class RyobiGDO:
     STATE_DOOR_OPEN = 'open'
     STATE_DOOR_CLOSED = 'closed'
     STATE_DOOR_OPENING = 'opening'
+    STATE_DOOR_CLOSING = 'closing'
     STATE_LIGHT_ON = 'on'
     STATE_LIGHT_OFF = 'off'
 
@@ -22,6 +23,7 @@ class RyobiGDO:
     DOOR_STATE = {
         '0': STATE_DOOR_CLOSED,
         '1': STATE_DOOR_OPEN,
+        '2': STATE_DOOR_CLOSING,
         '3': STATE_DOOR_OPENING,
     }
 
@@ -113,12 +115,12 @@ class RyobiGDO:
         if(answer == True and resp.status_code == 200):
             try:
                 gdo_status = resp.json()
+                # print(gdo_status)
                 dtm = gdo_status['result'][0]['deviceTypeMap']
-                door_state = dtm['garageDoor_7']['at']['doorState']['value']
+                door_state = dtm['garageDoor_4']['at']['doorState']['value']
                 self.door_state = self.DOOR_STATE[str(door_state)]
-                light_state = dtm['garageLight_7']['at']['lightState']['value']
+                light_state = dtm['garageLight_4']['at']['lightState']['value']
                 self.light_state = self.LIGHT_STATE[str(light_state)]
-                self.battery_level = dtm['backupCharger_8']['at']['chargeLevel']['value']
                 update_ok = True
             except KeyError:
                 print("Exception while parsing answer to update device")
