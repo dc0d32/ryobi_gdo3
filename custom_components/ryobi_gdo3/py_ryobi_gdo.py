@@ -182,8 +182,8 @@ class RyobiGDO:
                                            'method': 'gdoModuleCommand',
                                            'params':
                                            {'msgType': 16,
-                                            'moduleType': 5,
-                                            'portId': 7,
+                                            'moduleType': 11,
+                                            'portId': 4,
                                             'moduleMsg': {command: value},
                                             'topic': self.device_id}})
                     websocket.send(pay_load)
